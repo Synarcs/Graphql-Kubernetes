@@ -5,6 +5,9 @@ const { gql } = require('apollo-server');
 require('dotenv').config()
 
 const postgresconnectionUrl = process.env.postgresconnectionUrl
+const pool = new Pool({
+    connectionString:postgresconnectionUrl
+});
 
 const typeDefs = gql`
     type User {
@@ -15,9 +18,11 @@ const typeDefs = gql`
         createdAt: String
     }
     type Query{
-        sample: String!   
+        sample: String!
+        checkDBConnection: String!
     }
 `;
+
 
 const resolvers = {
     Query: {
@@ -26,7 +31,13 @@ const resolvers = {
         return "verified";
       },
       checkDBConnection() {
-          const query = ""
+            pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
+                if (error) {
+                   throw new ApolloError("database pod connection issue");
+                }
+                console.log(results.row);
+            });
+            return "query success";
       }
     },
   };
@@ -38,12 +49,9 @@ const server = new ApolloServer({
 
 const port = 4000 || process.env.PORT
 
-
 const connect = ()=>{
     try{
-        const pool = new Pool({
-            connectionString:postgresconnectionUrl
-        });
+      
         pool.on('error',(err,client)=>{
             throw new Error("psql client connection error");
         })
