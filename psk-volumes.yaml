@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-storgae
+  labels:
+    app: postgres
+    type: local
+spec:
+  storageClassName: psql-class
+  capacity:
+    storage: 4Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /var/data
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgresvolume-claim
+  labels:
+    app: postgres
+spec:
+  storageClassName: psql-class
+  resources:
+    requests:
+      storage: 4Gi
+  accessModes:
+    - ReadWriteMany

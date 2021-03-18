@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grapqhl-depl
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grapqhl-engine
+  template:
+    metadata:
+      labels:
+        app: grapqhl-engine
+    spec:
+      containers:
+      - name: grapqhl-engine
+        image: graphile/postgraphile
+        resources:
+          limits:
+            memory: "1128Mi"
+            cpu: "500m"
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: database-config
+              key: POSTGRES_GRAPHQL_DATABASE_URL
+        ports:
+        - containerPort: 5000
+
+        command: ['postgraphile']
+        args: ["--connection", "$(DATABASE_URL)", "--host", "0.0.0.0", "--port", "5000", "--schema", "postgres"]
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grapqhl-service
+spec:
+  selector:
+    app: grapqhl-engine
+  ports:
+   - port: 5000
+     targetPort: 5000
+

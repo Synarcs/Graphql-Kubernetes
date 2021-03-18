@@ -1,0 +1,7 @@
+name: kind-graphql-cluster 
+cluster-ip: http://10-222-52-144.ssnc-corp.cloud
+
+postgres:
+    POSTGRES_PASSWORD: cGFzc3dvcmQK 
+    
+    

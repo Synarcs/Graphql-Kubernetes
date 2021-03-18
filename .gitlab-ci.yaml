@@ -1,0 +1,53 @@
+image: docker
+services:
+  - docker:dind
+
+variables:
+  CONTAINER_NAME:  hasura/graphql-engine:v1.3.3  
+  PGRAPHILE_NAME:  graphile/postgraphile
+
+stages:
+  - login
+  - check
+  - startCluster
+  - health-prometheous
+
+login:
+  before_script:
+    - echo "[x] enabling docker login"
+  stage: login
+  script:
+    - docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
+    - echo "[x] login success"
+
+check:
+  before_script:
+    - echo "[x] checking for requirements"
+  image: dtzar/helm-kubectl
+  stage: check
+  script:
+    - bash remote-connect.sh ${CLOUD_INSTANCE_IP} ${KUBERNETES_CLUSTER_NAME}
+    - echo "[x] kubectl connected to remote cluster on cloud 10.222.52.144" 
+
+startCluster:
+  dependencies:
+    - login
+    - check
+  image: dtzar/helm-kubectl
+  stage: startCluster
+  script:
+    - echo "[x] installing th config in cluster"
+    - bash install-cluster.sh
+  
+  after_script:
+    - echo "[x] all config done"
+
+health-prometheous:
+  stage: health-prometheous 
+  dependencies:
+    - startCluster
+  before_script:
+    echo "[x] running health checks and display prometheus UI"
+  script:
+    bash health.sh ${KUBERNETES_CLUSTER_NAME}
+

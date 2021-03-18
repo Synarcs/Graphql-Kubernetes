@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: database-config
+data:
+  POSTGRES_GRAPHQL_DATABASE_URL: postgres://postgres:password@postgres-service.default.svc.cluster.local:4200/postgres
+  POSTGRES_GRAPHQL_ENABLE_CONSOLE: "true"
+  POSTGRES_GRAPHQL_DEV_MODE: "true"
+
+  DATABASE_USER: "postgres"
+
+
