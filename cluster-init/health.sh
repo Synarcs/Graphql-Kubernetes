@@ -7,6 +7,5 @@ kubectl wait --namespace ingress-nginx \
 kubectl get svc | grep "Kubernetes"
 kubectl config get-clusters
 
-
- kubectl --namespace default get pods -l "release=prometheus-griffana"
+kubectl --namespace default get pods -l "release=prometheus-griffana"
  

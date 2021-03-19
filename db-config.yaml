@@ -9,4 +9,5 @@ data:
 
   DATABASE_USER: "postgres"
 
+# create a gitlab variables for postgres password
 

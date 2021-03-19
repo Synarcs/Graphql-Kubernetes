@@ -1,4 +1,5 @@
 FROM node
+# change to  the actual version name while going to production.
 
 LABEL Apolloserve="Apollo server running on client"
 

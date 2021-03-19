@@ -1,28 +1,18 @@
-# Graphql-Kubernetes
-Production Ready Kubernetes cluster with statefulset and ingress controller enabled further upgrade to Min.io hybrid S3 storage
-
-
-# Kubernetes Cluster
-## Cluster Specification
-    * [x] 2 Worker Nodes 1 Master Control Plane
-    * [x] Prometheus and Grifana Monitoring 
-    * [x] Kubernetes DashBoard 
-    * [x] Postgres StatefulSet 
-    * [x] Custom Apollo-Server Graphql Image push to Docker Hub 
-    * [x] Nginx Ingress Controller With Kube-proxy configured for Google DNS
-    * [x] Gitlab CI/CD pipeline for automated Installing in Kubernets Cluster
-    * [x] Automated Scripts for starting and creating ingress enabled Kubernetes Cluster
- 
- 
-## Folder Overview
-    * apolloServer 
-       * [x] Sample Apollo Server Template with Docker image pushed to Docker Hub 
-    * clusterInit
-       * [x] Ingress Enabled Worker Plane for Inititalizing Kubernetes Cluster 
-    * [x] All Configuration files for Kubernetes Cluster
-    
-
-## Future Project Improvements
-   * [x] Adding Helm Charts and deploying to Artifactory Repository
-   * [x] Adding Min.io as volume for remote S3 storage for Kubernetes Cluster
-   
+## Folder Structure 
+    * ApolloServer 
+        [x] Development folder with deployment scripts to deploy apollo-server image to Docker Hub 
+        [x] Deployement to dockerhub can be modified to any private or public artifactory 
+    * cluster-init 
+        [x] Inititalize the Kubernetes Cluster 
+        [x] Inittialize Ingress Capable Nodes with Nginx ingress controller 
+        [x] Starts Kubernetes Dashboard for cluster service 
+        [x] Configured and manipulated Kube-Dns for public namespace server
+    * Root Folder 
+        [x] apollo-server.yaml --> Pulls ApolloServer custom image and create Deployment with Apollo-service
+        [x] ingress.yaml --> ingress configuration for nginx controller to point to apollo-service
+        [x] pass-secret.yaml --> File storing secrets for Kubernetes
+        [x] psk-volume.yaml --> PSVC,PSV for postgres pods for a storage class
+        [x] postgres-config.yaml --> file to start postgres pod and services refers uses PSVC inside a storage class
+        [x] storage-class.yaml --> file for starting the storage class used by PSVC,PSV 
+        [x] remote-connect.sh --> connect to remote cluster for private cloud instance
+        [x] install-service --> Apply all configuration to the cluster

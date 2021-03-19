@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ServiceMonitor
+
+metadata:
+  namespace: default 
+  name: nginx-ingress
+spec:
+  selector:
+    matchLabels:
+        app.kubernetes.io/name: ingress-nginx 
+        app.kubernetes.io/component: controller
+    namespaceSelector:
+      matchNames:
+      - ingress
+    endpoint:
+    - port: prometheus
+      interval: 10s
