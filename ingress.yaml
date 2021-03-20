@@ -13,4 +13,8 @@ spec:
         backend:
           serviceName: grapqhl-service
           servicePort: 3200
-
+      - path: /minio
+        backend:
+          serviceName: min-io-service 
+          servicePort: 5000
+          
