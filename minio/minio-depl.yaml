@@ -5,6 +5,7 @@ metadata:
   name: minio-depl
   namespace: minio-storage
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: minio
@@ -16,15 +17,13 @@ spec:
         app: minio
     spec:
       volumes:
-      - name: data
+      - name: data 
         persistentVolumeClaim:
-          claimName: minio-pv-claim
+          claimName: pure-block 
       containers:
       - name: minio
-        volumeMounts:
-        - name: data 
-          mountPath: "/data"
         image: minio/minio:latest
+        imagePullPolicy: IfNotPresent 
         args:
         - server
         - /data
@@ -45,6 +44,8 @@ spec:
               key: MINIO_SECRET_KEY
         ports:
         - containerPort: 9000
+          hostPort: 9000
+          protocol: TCP 
         readinessProbe:
           httpGet:
             path: /minio/health/ready
@@ -57,3 +58,6 @@ spec:
             port: 9000
           initialDelaySeconds: 120
           periodSeconds: 20
+        volumeMounts: 
+        - name: data 
+          mountPath: "/data"

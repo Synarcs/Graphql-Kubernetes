@@ -7,9 +7,6 @@
       *  [x] Inittialize Ingress Capable Nodes with Nginx ingress controller 
       *  [x] Starts Kubernetes Dashboard for cluster service 
       *  [x] Configured and manipulated Kube-Dns for public namespace server
-  * minio
-      *  [x] Remote S3 storage using minio 
-      *  [x] PVC and service exposed via nginx ingress
   * Root Folder 
       *  [x] apollo-server.yaml --> Pulls ApolloServer custom image and create Deployment with Apollo-service
       *  [x] ingress.yaml --> ingress configuration for nginx controller to point to apollo-service
