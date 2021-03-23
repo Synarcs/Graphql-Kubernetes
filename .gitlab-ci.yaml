@@ -5,12 +5,14 @@ services:
 variables:
   CONTAINER_NAME:  hasura/graphql-engine:v1.3.3  
   PGRAPHILE_NAME:  graphile/postgraphile
+  APOLLO_IMAGE: vedangparasnis/apollographql:latest 
 
 stages:
   - login
+  - ssh_connect
   - check
   - startCluster
-  - health-prometheous
+  # - health-prometheous
 
 login:
   before_script:
@@ -19,6 +21,17 @@ login:
   script:
     - docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
     - echo "[x] login success"
+
+ssh_connect:
+  stage: ssh_connect
+  image: ubuntu:latest
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY") # copy the ssh private key
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - scp dt230629@$CLOUD_INSTANCE_DNS:/root/.kube .
 
 check:
   before_script:
@@ -42,12 +55,12 @@ startCluster:
   after_script:
     - echo "[x] all config done"
 
-health-prometheous:
-  stage: health-prometheous 
-  dependencies:
-    - startCluster
-  before_script:
-    echo "[x] running health checks and display prometheus UI"
-  script:
-    bash health.sh ${KUBERNETES_CLUSTER_NAME}
+# health-prometheous:
+#   stage: health-prometheous 
+#   dependencies:
+#     - startCluster
+#   before_script:
+#     echo "[x] running health checks and display prometheus UI"
+#   script:
+#     bash health.sh ${KUBERNETES_CLUSTER_NAME}
 
