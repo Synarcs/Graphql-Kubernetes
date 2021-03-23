@@ -50,7 +50,7 @@ startCluster:
   stage: startCluster
   script:
     - echo "[x] installing th config in cluster"
-    - bash install-cluster.sh
+    - bash install-services.sh
   
   after_script:
     - echo "[x] all config done"

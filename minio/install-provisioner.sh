@@ -1,11 +1,11 @@
 echo "[x] installing pso-orchestrator [CSI] inside cluster "
-helm repo add pure https://purestorage.github.io/helm-charts
+helm repo add pure https://purestorage.github.io/pso-csi
 helm repo update
-helm search pure/pure-k8s-plugin
+helm search repo pure-pso -l
 
 helm repo ls 
-helm install pure-storage-driver pure/pure-k8s-plugin -f pso-config --dry-run --debug
-helm install pure-storage-driver pure/pure-k8s-plugin -f pso-config 
+helm install pure-pso pure/pure-pso -f pso-config.yaml -n minio-storage --dry-run --debug
+helm install pure-pso pure/pure-pso -f pso-config.yaml -n minio-storage 
 
 # for now kept all in defaullt namesapve
 # patching the namespace first install storage class
