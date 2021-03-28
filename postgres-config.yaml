@@ -36,12 +36,16 @@ spec:
         - containerPort: 5432
           name: postgres-db
         volumeMounts:
-        - name: pv-data
-          mountPath: /var/lib/postgresql/
+        - name: nfs-storage
+          mountPath: /nfs-storage
       volumes:
-        - name: pv-data
-          persistentVolumeClaim:
-            claimName: postgresvolume-claim
+      - name: nfs-storage
+        persistentVolumeClaim:
+          claimName: nfs-pvc
+          #      volumes:
+          #- name: pv-data
+          #          persistentVolumeClaim:
+                  #   claimName: postgresvolume-claim
 
 ---
 apiVersion: v1

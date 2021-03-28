@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: minio-configs
 data:
-  MINIO_ACCESS_KEY: "minioadmin"
-  MINIO_SECRET_KEY: "minioadmin"
+  MINIO_ACCESS_KEY: "minio"
+  MINIO_SECRET_KEY: "minio123"

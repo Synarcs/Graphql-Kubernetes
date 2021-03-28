@@ -3,18 +3,16 @@ kind: Ingress
 metadata:
   name: ingress
   namespace: default
-
 spec:
   rules:
-  - host: graphqlengine.ssnc-corp.cloud
+  - host: nifi-cluster.ssnc-corp.cloud
   - http:
       paths:
       - path: /graphql
         backend:
-          serviceName: grapqhl-service
-          servicePort: 3200
+          serviceName: apollo-service
+          servicePort: 3000
       - path: /minio
         backend:
-          serviceName: min-io-service 
+          serviceName: minio-service 
           servicePort: 5000
-          

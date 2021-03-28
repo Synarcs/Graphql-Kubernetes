@@ -8,3 +8,4 @@ docker tag apollographql/service artifacts-scm.dstcorp.net/docker-local/lyric/ap
 docker login artifacts-scm.dstcorp.net
 docker push artifacts-scm.dstcorp.net/docker-local/lyric/apollo-service
 
+

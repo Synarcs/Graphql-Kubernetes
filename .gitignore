@@ -1,1 +1,3 @@
 apolloServer/node_modules
+.gitlab-ci.yaml
+*.swp

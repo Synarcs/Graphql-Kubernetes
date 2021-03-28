@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: min-io-service
-  namespace:  minio-storage
+  name: minio-service
+  #  namespace:  minio-storage
 spec:
   # type: NodePort
   selector:

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pure-block
-  namespace: minio-storage
+  #  namespace: minio-storage
 spec:
   resources:
     requests:
@@ -10,5 +10,4 @@ spec:
   accessModes:
     - ReadWriteMany 
   storageClassName: pure-block
-
 
