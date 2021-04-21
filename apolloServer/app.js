@@ -4,6 +4,8 @@ const {ApolloServer,ApolloError} = require('apollo-server');
 const { gql } = require('apollo-server');
 require('dotenv').config()
 
+const currentEnvPath = path.resolve('../');
+
 const postgresconnectionUrl = process.env.postgresconnectionUrl
 const pool = new Pool({
     connectionString:postgresconnectionUrl

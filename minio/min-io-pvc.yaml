@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pure-block
+  namespace: minio-storage
+spec:
+  resources:
+    requests:
+      storage: 12Gi
+  accessModes:
+    - ReadWriteMany 
+  storageClassName: pure-block
+
+--- 
+apiVersion: v1 
+kind: Namespace 
+metadata:
+  name: nfs-rook 
+
+--- 
+apiVersion: v1 
+kind: ServiceAccount 
+metadata:
+  name: nfs-rool-orch 
+  namespace: nfs-rook 
+

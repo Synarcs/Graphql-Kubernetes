@@ -1,7 +1,7 @@
 echo "[x] setting up the kubernetes cluster config will upgrade to helm"
 
-#kubectl apply -f storage-class.yaml
-#kubectl apply -f psk-volumes.yaml
+kubectl apply -f storage-class.yaml
+kubectl apply -f psk-volumes.yaml
 kubectl apply -f db-config.yaml
 kubectl apply -f pass-secret.yaml
 kubectl apply -f postgres-config.yaml

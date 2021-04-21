@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: che
+spec:
+  rules:
+  - host: 10-222-74-69.ssnc-corp.cloud
+  - http:
+      paths:
+      - path: /dashboard
+        backend:
+          serviceName: che-host
+          servicePort: 8080
+      - path: /
+        backend:
+          serviceName: keycloak
+          servicePort: 9990
+
+          
